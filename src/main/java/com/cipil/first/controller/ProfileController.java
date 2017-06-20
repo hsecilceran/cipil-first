@@ -4,7 +4,11 @@ import com.cipil.first.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dinco on 20.6.2017.
@@ -26,14 +30,15 @@ public class ProfileController {
 
 
     @RequestMapping("/findall")
-    public String findAll(){
-        String result = "<html>";
+    @ResponseBody
+    public List<Profile> findAll(){
 
+        List<Profile> returnValue = new ArrayList<Profile>();
         for(Profile cust : repository.findAll()){
-            result += "<div>" + cust.toString() + "</div>";
+            returnValue.add(cust);
         }
 
-        return result + "</html>";
+        return returnValue;
     }
 
     @RequestMapping("/findbyid")
